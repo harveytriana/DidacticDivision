@@ -3,24 +3,24 @@ using System.IO;
 
 namespace División
 {
-    delegate void ConsoleWriteLine(string _Format, params object[] _Args);
-    delegate void ConsoleWrite(string _Text);
+    delegate void ConsoleWriteLine(string format, params object[] args);
+    delegate void ConsoleWrite(string text);
 
     class Program
     {
-        static ConsoleWriteLine _wl = (_Format, _Args) =>
+        static ConsoleWriteLine _wl = (format, args) =>
         {
-            Console.WriteLine(_Format, _Args);
+            Console.WriteLine(format, args);
         };
 
-        static ConsoleWrite _w = (_Text) =>
+        static ConsoleWrite _w = (text) =>
         {
-            Console.Write(_Text);
+            Console.Write(text);
         };
 
         static void Main(string[] args)
         {
-            HacerDivisión hd = new HacerDivisión();
+            DoDivision hd = new DoDivision();
             /*/
             hd.Divida(8593, 23);
             //
@@ -40,17 +40,17 @@ namespace División
                 _wl("Datos de la División");
                 _wl("--------------------");
                 _w("Dividendo=? ");
-                int Dividendo = GetInteger(Console.ReadLine());
+                int dividend = GetInteger(Console.ReadLine());
                 _w("Divisor=? ");
-                int Divisor = GetInteger(Console.ReadLine());
+                int divider = GetInteger(Console.ReadLine());
                 //
-                if (Dividendo == 0)
+                if (dividend == 0)
                 {
                     break;
                 }
-                hd.Divida(Dividendo, Divisor);
+                hd.Divide(dividend, divider);
                 _wl("");
-                hd.Reporte();
+                hd.Report();
                 _wl("");
                 //hd.Emitido();
             }
