@@ -7,15 +7,15 @@ namespace División
     class HacerDivisión
     {// Algoritmo: http://es.wikipedia.org/wiki/Divisi%C3%B3n_(matem%C3%A1tica)
 
-        string m_Dividendo;
-        string m_Divisor;
-        string m_Cociente;
-        string m_Residuo;
-        int m_Contador;
-        bool m_Emitir = true;
+        string _dividendo;
+        string _divisor;
+        string _cociente;
+        string _residuo;
+        int _contador;
+        bool _emitir = true;
         //
-        List<string> m_Reporte = new List<string>();
-        List<string> m_Emitido = new List<string>();
+        List<string> _reporte = new List<string>();
+        List<string> _emitido = new List<string>();
 
         public void Divida(int Dividendo, int Divisor)
         {
@@ -24,31 +24,32 @@ namespace División
                 Divida(Dividendo.ToString(), Divisor.ToString());
             }
         }
+
         public void Divida(int Dividendo, int Divisor, bool Emitir)
         {
-            m_Emitir = Emitir;
+            _emitir = Emitir;
             Divida(Dividendo, Divisor);
         }
         private void Divida(string Dividendo, string Divisor)
         {
-            m_Dividendo = Dividendo;
-            m_Divisor = Divisor;
-            m_Cociente = "";
-            m_Residuo = "";
-            m_Contador = 0;
-            m_Reporte.Clear();
-            m_Emitido.Clear();
+            _dividendo = Dividendo;
+            _divisor = Divisor;
+            _cociente = "";
+            _residuo = "";
+            _contador = 0;
+            _reporte.Clear();
+            _emitido.Clear();
 
             Emíta("DIVIDIR:");
-            Emíta("Dividendo = {0}", m_Dividendo);
-            Emíta("Divisor = {0}", m_Divisor);
+            Emíta("Dividendo = {0}", _dividendo);
+            Emíta("Divisor = {0}", _divisor);
             Emíta("---------------------------------------------------------\n\r");
-            string r = m_Dividendo;
+            string r = _dividendo;
             while (r.Length > 0) { r = Parcial(r, Divisor); }
 
             Emíta("RESULTADO:");
-            Emíta("Cociente = {0}", m_Cociente);
-            Emíta("Residuo = {0}\n\r", m_Residuo);
+            Emíta("Cociente = {0}", _cociente);
+            Emíta("Residuo = {0}\n\r", _residuo);
         }
 
         private bool PatametrosValidos(int Dividendo, int Divisor)
@@ -91,8 +92,7 @@ namespace División
             {
                 a = int.Parse(_Dividendo.Substring(0, 2));
                 c = int.Parse(_Dividendo.Substring(0, 3));
-            }
-            else
+            } else
             {
                 c = int.Parse(_Dividendo.Substring(0, 2));
             }
@@ -114,48 +114,46 @@ namespace División
                 else break;
             }
 
-            m_Reporte.Add(Sustractor.ToString());
+            _reporte.Add(Sustractor.ToString());
 
             Resto = c - Sustractor;
-            m_Residuo = Resto.ToString();
+            _residuo = Resto.ToString();
 
             //Emíta("\n\rResto = c - Sustractor = ({0} - {1}) = {2}\n\r", c, Sustractor, Resto);
             Emíta("");
 
-            m_Cociente += CocienteParcial.ToString();
+            _cociente += CocienteParcial.ToString();
 
-            Emíta("Cociente acomulado = {0}", m_Cociente);
-            Emíta("Residuo Parcial = {0}\n\r", m_Residuo);
+            Emíta("Cociente acomulado = {0}", _cociente);
+            Emíta("Residuo Parcial = {0}\n\r", _residuo);
 
-            if (m_Contador == 0) 
-                m_Contador += c.ToString().Length;
+            if (_contador == 0)
+                _contador += c.ToString().Length;
             else
-                m_Contador++;
+                _contador++;
 
-            if (m_Contador < m_Dividendo.Length)
+            if (_contador < _dividendo.Length)
             {
-                Emíta("Agregamos siguiente cifra al Residuo => {0}...{1} = {0}{1}", m_Residuo, m_Dividendo[m_Contador].ToString());
-                SubDividendo = (Resto == 0 ? "" : Resto.ToString()) + m_Dividendo[m_Contador].ToString();
+                Emíta("Agregamos siguiente cifra al Residuo => {0}...{1} = {0}{1}", _residuo, _dividendo[_contador].ToString());
+                SubDividendo = (Resto == 0 ? "" : Resto.ToString()) + _dividendo[_contador].ToString();
 
                 if (int.Parse(SubDividendo) < d)
                 {
                     Emíta("Cómo {0} es menor que {1} agregamos '0' al cociente", SubDividendo, d);
-                    m_Cociente += "0";
-                    m_Contador++;
-                    if (m_Contador < m_Dividendo.Length)
+                    _cociente += "0";
+                    _contador++;
+                    if (_contador < _dividendo.Length)
                     {
-                        Emíta("Agregamos siguiente cifra al Residuo => {0}...{1} = {0}{1}", SubDividendo, m_Dividendo[m_Contador].ToString());
-                        SubDividendo += m_Dividendo[m_Contador].ToString();
-                    }
-                    else
+                        Emíta("Agregamos siguiente cifra al Residuo => {0}...{1} = {0}{1}", SubDividendo, _dividendo[_contador].ToString());
+                        SubDividendo += _dividendo[_contador].ToString();
+                    } else
                     {
-                        m_Residuo = SubDividendo;
+                        _residuo = SubDividendo;
                         SubDividendo = "";
                     }
                 }
-                if (SubDividendo != "") m_Reporte.Add(SubDividendo);
-            }
-            else
+                if (SubDividendo != "") _reporte.Add(SubDividendo);
+            } else
             {// No hay más cifras del dividendo, termina iteración
                 SubDividendo = "";
             }
@@ -165,24 +163,24 @@ namespace División
 
         void Emíta(string FormatString, params object[] a)
         {
-            if (m_Emitir) m_Emitido.Add(string.Format(FormatString, a));
+            if (_emitir) _emitido.Add(string.Format(FormatString, a));
         }
 
-        public int Cociente { get { return int.Parse(m_Cociente); } }
-        public int Residuo { get { return int.Parse(m_Residuo); } }
+        public int Cociente { get { return int.Parse(_cociente); } }
+        public int Residuo { get { return int.Parse(_residuo); } }
 
         public void Reporte()
         {
-            if (m_Dividendo == null)
+            if (_dividendo == null)
             {
                 Console.WriteLine("no hay datos que reportar");
                 return;
             }
 
             int i = 0;
-            string n = (m_Dividendo.Length).ToString();
-            Console.WriteLine("{0, -" + n +"} | {1}", m_Dividendo, m_Divisor);
-            foreach (string s in m_Reporte)
+            string n = (_dividendo.Length).ToString();
+            Console.WriteLine("{0, -" + n + "} | {1}", _dividendo, _divisor);
+            foreach (string s in _reporte)
             {
                 if (i == 0)
                 {
@@ -190,9 +188,8 @@ namespace División
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.Write("{0, -" + n + "}", s);
                     Console.ForegroundColor = ConsoleColor.Gray;
-                    Console.WriteLine(" | {0}", m_Cociente);
-                }
-                else
+                    Console.WriteLine(" | {0}", _cociente);
+                } else
                 {
                     Console.ForegroundColor = (i % 2 == 0) ? ConsoleColor.DarkGray : ConsoleColor.Gray;
                     Console.WriteLine("{0}", s);
@@ -200,16 +197,16 @@ namespace División
                 i++;
             }
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("{0}", m_Residuo);
+            Console.WriteLine("{0}", _residuo);
             Console.WriteLine("---------------");
 
             // probar
 
-            int r = int.Parse(m_Cociente) * int.Parse(m_Divisor) + int.Parse(m_Residuo);
+            int r = int.Parse(_cociente) * int.Parse(_divisor) + int.Parse(_residuo);
 
             Console.WriteLine("Prueba = Cociente * Divisor + Residuo = {0}\n\r", r);
 
-            if (r == int.Parse(m_Dividendo) && int.Parse(m_Residuo) < int.Parse(m_Divisor))
+            if (r == int.Parse(_dividendo) && int.Parse(_residuo) < int.Parse(_divisor))
                 Console.WriteLine("División correcta");
             else
                 Console.WriteLine("División incorrecta");
@@ -218,7 +215,7 @@ namespace División
 
         public void Emitido()
         {
-            foreach (string s in m_Emitido) Console.WriteLine(s);
+            foreach (string s in _emitido) Console.WriteLine(s);
         }
     }
 }

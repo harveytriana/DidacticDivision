@@ -17,7 +17,7 @@ namespace División
         {
             Console.Write(_Text);
         };
-        
+
         static void Main(string[] args)
         {
             HacerDivisión hd = new HacerDivisión();
@@ -58,8 +58,7 @@ namespace División
 
         private static int GetInteger(string s)
         {
-            int r = 0;
-            int.TryParse(s, out r);
+            int.TryParse(s, out int r);
             return r;
         }
     }
