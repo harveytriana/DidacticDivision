@@ -1,0 +1,263 @@
+﻿// DETALLADO. Primera solución.
+using System;
+namespace División
+{
+    delegate void ConsoleWriteLine(string _Format, params object[] _Args);
+    delegate void ConsoleWrite(string _Text);
+
+    class Program
+    {
+        static ConsoleWriteLine _wl = (_Format, _Args) => { Console.WriteLine(_Format, _Args); };
+
+        static string Dividendo;
+        static string Divisor;
+        static string Cociente;
+        static string Residuo;
+        static int Contador;
+
+        static void Main(string[] args)
+        {
+            _wl("División Por Dos Cifras");
+            _wl("-----------------------");
+
+            Dividendo = "948";
+            Divisor = "32";
+            Cociente = "";
+            Residuo = "";
+            Contador = 0;
+            
+            string r = Dividendo;
+            while (r.Length > 0)
+            {
+                r = Divida(r, Divisor);
+                _wl("-----------------------");
+            }
+            _wl("Cociente = {0}", Cociente);
+            _wl("Residuo = {0}", Residuo);
+            Console.ReadKey();
+        }
+
+        static string Divida(string _Dividendo, string _Divisor)
+        {
+            int CocienteParcial;
+            int Resto;
+            int Sustractor;
+
+            // http://es.wikipedia.org/wiki/Divisi%C3%B3n_(matem%C3%A1tica)
+
+            _wl("_Dividendo = {0}", _Dividendo);
+            _wl("_Divisor = {0}\n\r", _Divisor);
+
+
+            int a = int.Parse(_Dividendo[0].ToString());
+            int b = int.Parse(_Divisor[0].ToString());
+            int c;
+
+            _wl("Primera cifra _Dividendo = {0} = a", a);
+            _wl("Primera cifra _Divisor = {0} = b\n\r", b);
+
+            if (a <= b)
+            {
+                a = int.Parse(_Dividendo.Substring(0, 2));
+                c = int.Parse(_Dividendo.Substring(0, 3));
+            }
+            else
+            {
+                c = int.Parse(_Dividendo.Substring(0, 2));
+            }
+            CocienteParcial = a / b;
+            Sustractor = CocienteParcial * int.Parse(_Divisor);
+
+            _wl("Si a <= b ? (toma dos cifra), (si no una cifras) => a = {0}", a);
+            _wl("Si a <= b ? (toma tres cifras), (si no dos cifras) => c = {0}\n\r", c);
+            _wl("Cociente Parcial = ({0}/{1}) = {2}\n\r", a, b, CocienteParcial);
+            _wl("(CocienteParcial * _Divisor > c) ? Restamos 1 a CocienteParcial");
+            _wl("Evalumos ({0} * {1} > {2}) ? {0}-- => {3} > {2} ? {0}--", CocienteParcial, _Divisor, c, Sustractor);
+
+            if (Sustractor > a) CocienteParcial--;
+            _wl("Cociente Parcial = {0}\n\r", CocienteParcial);
+
+            Sustractor = CocienteParcial * int.Parse(_Divisor);
+            Resto = c - Sustractor;
+            Residuo = Resto.ToString();
+
+            _wl("Sustractor = CocienteParcial * _Divisor = ({0} * {1}) = {2}", CocienteParcial, _Divisor, Sustractor);
+            _wl("Resto = c - Sustractor = ({0} - {1}) = {2}\n\r", c, Sustractor, Resto);
+
+            Cociente += CocienteParcial.ToString();
+            _wl("CocienteParcial = {0}\n\r", Cociente);
+
+            if (Contador == 0)
+                Contador += c.ToString().Length;
+            else
+                Contador++;
+
+            if (Contador < Dividendo.Length)
+            {
+                _wl("Agregamos siguiente cifra al Residuo => {0}...{1} = {0}{1}\n\r", Resto, Dividendo[Contador].ToString());
+                return Resto + Dividendo[Contador].ToString();
+            }
+            else
+            {
+                _wl("No hay más cifras del dividendo, termina iteración.\n\r");             
+                return "";
+            }
+        }
+    }
+}
+//
+using System;
+// Por: Harvey Triana
+namespace División
+{
+    class HacerDivisión
+    {// Algoritmo: http://es.wikipedia.org/wiki/Divisi%C3%B3n_(matem%C3%A1tica)
+
+        string m_Dividendo;
+        string m_Divisor;
+        string m_Cociente;
+        string m_Residuo;
+        int m_Contador;
+        bool m_Emitir = false;
+
+        public HacerDivisión()
+        {
+            m_Emitir = true;
+        }
+        public HacerDivisión(bool Emitir)
+        {
+            m_Emitir = Emitir;
+        }
+
+        public void Divida(int Dividendo, int Divisor)
+        {
+            if (PatametrosValidos())
+            {
+                Divida(Dividendo.ToString(), Divisor.ToString());
+            }
+        }
+        private void Divida(string Dividendo, string Divisor)
+        {
+            m_Dividendo = Dividendo;
+            m_Divisor = Divisor;
+            m_Cociente = "";
+            m_Residuo = "";
+            m_Contador = 0;
+
+            string r = m_Dividendo;
+            while (r.Length > 0) { r = Parcial(r, Divisor); }
+
+            m_Emitir = true;
+            Emíta("Resultado:");
+            Emíta(" Dividendo = {0}", m_Dividendo);
+            Emíta(" Divisor = {0}", m_Divisor);
+            Emíta(" Cociente = {0}", m_Cociente);
+            Emíta(" Residuo = {0}\n\r", m_Residuo);
+            Emíta(" Prueba = Cociente * Divisor + Residuo = {0}", Prueba());
+            m_Emitir = false;
+        }
+
+        private int Prueba()
+        {
+            return int.Parse(m_Cociente) * int.Parse(m_Divisor) + int.Parse(m_Residuo);
+        }
+
+        private bool PatametrosValidos()
+        {// $
+            return true;
+        }
+
+        string Parcial(string _Dividendo, string _Divisor)
+        {
+            int CocienteParcial;
+            int Resto;
+            int Sustractor;
+
+            Emíta("_Dividendo = {0}", _Dividendo);
+            Emíta("_Divisor = {0}\n\r", _Divisor);
+
+            
+            if (int.Parse(_Dividendo) < int.Parse(_Divisor))
+            {
+                m_Cociente += "0";
+                m_Residuo = _Dividendo;
+                return "";
+            }
+            
+            int a = int.Parse(_Dividendo[0].ToString());
+            int b = int.Parse(_Divisor[0].ToString());
+            int c;
+
+            Emíta("Primera cifra _Dividendo = {0} = a", a);
+            Emíta("Primera cifra _Divisor = {0} = b\n\r", b);
+
+            if (a <= b)
+            {
+                a = int.Parse(_Dividendo.Substring(0, 2));
+                c = int.Parse(_Dividendo.Substring(0, 3));
+            }
+            else
+            {
+                c = int.Parse(_Dividendo.Substring(0, 2));
+            }
+
+            //  el número que multiplicado por el divisor se aproxima más por defecto a 'a'
+            CocienteParcial = a / b;
+
+            /*
+            if (a.ToString().Length == 2)
+                if (CocienteParcial * b >= a) CocienteParcial--;
+            */
+            if (CocienteParcial > 10) CocienteParcial = 10;
+
+            Sustractor = CocienteParcial * int.Parse(_Divisor);
+
+            Emíta("Si a <= b ? (toma dos cifra), (si no una cifras) => a = {0}", a);
+            Emíta("Si a <= b ? (toma tres cifras), (si no dos cifras) => c = {0}\n\r", c);
+            Emíta("m_Cociente Parcial = ({0}/{1}) = {2}\n\r", a, b, CocienteParcial);
+            Emíta("(CocienteParcial * _Divisor > c) ? Restamos 1 a CocienteParcial");
+            Emíta("Evalumos ({0} * {1} > {2}) ? {0}-- => {3} > {2} ? {0}--", CocienteParcial, _Divisor, c, Sustractor);
+
+            if (Sustractor > c) CocienteParcial--;
+
+            Emíta("m_Cociente Parcial = {0}\n\r", CocienteParcial);
+
+            Sustractor = CocienteParcial * int.Parse(_Divisor);
+            Resto = c - Sustractor;
+            m_Residuo = Resto.ToString();
+
+            Emíta("Sustractor = CocienteParcial * _Divisor = ({0} * {1}) = {2}", CocienteParcial, _Divisor, Sustractor);
+            Emíta("Resto = c - Sustractor = ({0} - {1}) = {2}\n\r", c, Sustractor, Resto);
+
+            m_Cociente += CocienteParcial.ToString();
+
+            Emíta("Cociente Parcial = {0}", m_Cociente);
+            Emíta("Residuo Parcial = {0}\n\r", m_Residuo);
+
+            if (m_Contador == 0)
+                m_Contador += c.ToString().Length;
+            else
+                m_Contador++;
+
+            if (m_Contador < m_Dividendo.Length)
+            {
+                Emíta("Agregamos siguiente cifra al Residuo => {0}...{1} = {0}{1}", m_Residuo, m_Dividendo[m_Contador].ToString());
+                Emíta("---------------------------------------------------------\n\r");
+                return (Resto == 0 ? "" : Resto.ToString()) + m_Dividendo[m_Contador].ToString();
+            }
+            else
+            {// No hay más cifras del dividendo, termina iteración
+                Emíta("---------------------------------------------------------\n\r");
+                return "";
+            }
+        }
+
+        void Emíta(string FormatString, params object[] a)
+        {
+            if(m_Emitir) Console.WriteLine(FormatString, a);
+        }
+
+        public int Cociente { get { return int.Parse(m_Cociente); } }
+        public int Residuo { get { return int.Parse(m_Residuo); } }
+      }
+}
