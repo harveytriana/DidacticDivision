@@ -1,9 +1,15 @@
-﻿using System;
+﻿//==============================================
+// By: Harvey Triana
+// A didactic way of extracting the steps of an 
+// arithmetic division by two digits.
+//==============================================
+using System;
 using System.Collections.Generic;
 
-namespace DidacticDivision {
-    class DoDivision {// Source: http://es.wikipedia.org/wiki/Divisi%C3%B3n_(matem%C3%A1tica)
-
+namespace DidacticDivision
+{
+    class DoDivision
+    {// Source: http://es.wikipedia.org/wiki/Divisi%C3%B3n_(matem%C3%A1tica)
         string _dividend;
         string _divider;
         string _quotient;
@@ -24,6 +30,7 @@ namespace DidacticDivision {
             _emitir = emit;
             Divide(dividend, divider);
         }
+
         private void Run(string dividend, string divider) {
             _dividend = dividend;
             _divider = divider;
@@ -75,7 +82,7 @@ namespace DidacticDivision {
             Emit("   a = Take the first two digits");
             Emit("   c = Take the first three digits");
             Emit("Otherwise");
-            Emit("   a = Take the first digit (no change)");
+            Emit("   a = Take the first digit (no changes)");
             Emit("   c = Take the first two digits\n\r");
 
             if (a <= b) {
