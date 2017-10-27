@@ -1,25 +1,18 @@
 ﻿using System;
 using System.IO;
+//
+using static System.Console;
 
 namespace División
 {
-    delegate void ConsoleWriteLine(string format, params object[] args);
-    delegate void ConsoleWrite(string text);
-
     class Program
     {
-        static ConsoleWriteLine _wl = (format, args) =>
-        {
-            Console.WriteLine(format, args);
-        };
-
-        static ConsoleWrite _w = (text) =>
-        {
-            Console.Write(text);
-        };
-
         static void Main(string[] args)
         {
+            ForegroundColor = ConsoleColor.Yellow;
+            WriteLine("DIDATIC DIVISION\n");
+            ForegroundColor = ConsoleColor.Gray;
+
             DoDivision hd = new DoDivision();
             /*/
             hd.Divida(8593, 23);
@@ -37,21 +30,21 @@ namespace División
             //*/
             while (true)
             {
-                _wl("Datos de la División");
-                _wl("--------------------");
-                _w("Dividendo=? ");
-                int dividend = GetInteger(Console.ReadLine());
-                _w("Divisor=? ");
-                int divider = GetInteger(Console.ReadLine());
+                WriteLine("Datos de la División");
+                WriteLine("--------------------");
+                Write("Dividendo             = ? ");
+                int dividend = GetInteger(ReadLine());
+                Write("Divisos (two numbers) = ? ");
+                int divider = GetInteger(ReadLine());
                 //
                 if (dividend == 0)
                 {
                     break;
                 }
                 hd.Divide(dividend, divider);
-                _wl("");
+                WriteLine("");
                 hd.Report();
-                _wl("");
+                WriteLine("");
                 //hd.Emitido();
             }
         }
