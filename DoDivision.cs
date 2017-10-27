@@ -147,8 +147,8 @@ namespace DidacticDivision {
             if (_emitir) _emited.Add(string.Format(FormatString, a));
         }
 
-        public int Quotient { get { return int.Parse(_quotient); } }
-        public int Residue { get { return int.Parse(_residue); } }
+        public int Quotient => int.Parse(_quotient);
+        public int Residue => int.Parse(_residue);
 
         public void Report() {
             if (_dividend == null) {
@@ -187,9 +187,10 @@ namespace DidacticDivision {
                 Console.WriteLine("Incorrect division");
         }
 
-
         public void Emited() {
-            foreach (string s in _emited) Console.WriteLine(s);
+            foreach (string s in _emited) {
+                Console.WriteLine(s);
+            }
         }
     }
 }
