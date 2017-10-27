@@ -1,9 +1,14 @@
-﻿using System;
+﻿//==============================================
+// By: Harvey Triana
+// A didactic way of extracting the steps of an 
+// arithmetic division by two digits.
+//==============================================
+using System;
 using System.IO;
 //
 using static System.Console;
 
-namespace División
+namespace DidacticDivision
 {
     class Program
     {
@@ -13,7 +18,7 @@ namespace División
             WriteLine("DIDATIC DIVISION\n");
             ForegroundColor = ConsoleColor.Gray;
 
-            DoDivision hd = new DoDivision();
+            var hd = new DoDivision();
             /*/
             hd.Divida(8593, 23);
             //
@@ -30,11 +35,11 @@ namespace División
             //*/
             while (true)
             {
-                WriteLine("Datos de la División");
-                WriteLine("--------------------");
-                Write("Dividendo             = ? ");
+                WriteLine("Input");
+                WriteLine("-----");
+                Write("Dividend             = ? ");
                 int dividend = GetInteger(ReadLine());
-                Write("Divisos (two numbers) = ? ");
+                Write("Divider (two digits) = ? ");
                 int divider = GetInteger(ReadLine());
                 //
                 if (dividend == 0)

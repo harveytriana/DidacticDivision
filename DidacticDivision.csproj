@@ -8,8 +8,8 @@
     <ProjectGuid>{3DA2F61A-ED40-41A2-B87B-C48B4CF87B73}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>División</RootNamespace>
-    <AssemblyName>División</AssemblyName>
+    <RootNamespace>DidacticDivision</RootNamespace>
+    <AssemblyName>DidacticDivision</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
