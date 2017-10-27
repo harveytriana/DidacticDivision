@@ -40,16 +40,16 @@ namespace DidacticDivision
             _report.Clear();
             _emited.Clear();
 
-            Emit("DIVIDIR:");
-            Emit("Dividendo = {0}", _dividend);
-            Emit("Divisor = {0}", _divider);
+            Emit("DIVIDE:");
+            Emit("Dividend = {0}", _dividend);
+            Emit("Divider  = {0}", _divider);
             Emit("---------------------------------------------------------\n\r");
             string r = _dividend;
             while (r.Length > 0) { r = Partial(r, divider); }
 
-            Emit("RESULTADO:");
-            Emit("Cociente = {0}", _quotient);
-            Emit("Residuo = {0}\n\r", _residue);
+            Emit("RESULT:");
+            Emit("Quotient = {0}", _quotient);
+            Emit("Residue  = {0}\n\r", _residue);
         }
 
         private bool ValidParameters(int dividend, int divider)
@@ -58,7 +58,7 @@ namespace DidacticDivision
                 dividend.ToString().Length < 2 ||
                 divider > dividend)
             {
-                Emit("Parámetros no validos");
+                Emit("Invalid data entered");
                 return false;
             }
             return true;
@@ -71,22 +71,22 @@ namespace DidacticDivision
             int substractor;
             string subDividend;
 
-            Emit("_Dividendo = {0}", dividend);
-            Emit("_Divisor = {0}\n\r", divider);
+            Emit("dividend = {0}", dividend);
+            Emit("divider  = {0}\n\r", divider);
 
             int d = int.Parse(divider);
             int a = int.Parse(dividend[0].ToString());
             int b = int.Parse(divider[0].ToString());
             int c;
 
-            Emit("Primera cifra _Dividendo = {0} = a", a);
-            Emit("Primera cifra _Divisor = {0} = b\n\r", b);
-            Emit("Si a <= b");
-            Emit("   a = Toma dos primeras cifras");
-            Emit("   c = Toma las tres primeras cifras");
-            Emit("En caso contrario");
-            Emit("   a = Toma la primera cifra (no varia)");
-            Emit("   c = Toma las dos primeras cifras\n\r");
+            Emit("first number of dividend = {0} = a", a);
+            Emit("first number of divider = {0} = b\n\r", b);
+            Emit("If a <= b");
+            Emit("   a = Take the first two digits");
+            Emit("   c = Take the first three digits");
+            Emit("Otherwise");
+            Emit("   a = Take the first digit (no change)");
+            Emit("   c = Take the first two digits\n\r");
 
             if (a <= b)
             {
@@ -103,8 +103,8 @@ namespace DidacticDivision
             //  el número que multiplicado por el divisor se aproxima más por defecto a 'a'
 
             partialRatio = a / b;
-            Emit("CocienteParcial = a / b = {0}\n\r", partialRatio);
-            Emit("Buscamos que '{0}' - CocienteParcial * Divisor >= 0\n\rRestando 1 de CocienteParcial", c);
+            Emit("Partial Quotient = a / b = {0}\n\r", partialRatio);
+            Emit("We search that '{0}' - Partial Quotient * Divider >= 0\nSubtracting 1 from Partial Quotient", c);
             while (true)
             {
                 substractor = partialRatio * d;
@@ -124,8 +124,8 @@ namespace DidacticDivision
 
             _quotient += partialRatio.ToString();
 
-            Emit("Cociente acomulado = {0}", _quotient);
-            Emit("Residuo Parcial = {0}\n\r", _residue);
+            Emit("Acomulated quotient = {0}", _quotient);
+            Emit("Partial residue     = {0}\n\r", _residue);
 
             if (_counter == 0)
                 _counter += c.ToString().Length;
@@ -134,17 +134,17 @@ namespace DidacticDivision
 
             if (_counter < _dividend.Length)
             {
-                Emit("Agregamos siguiente cifra al Residuo => {0}...{1} = {0}{1}", _residue, _dividend[_counter].ToString());
+                Emit("We add the following figure to the Residue => {0} ... {1} = {0} {1}", _residue, _dividend[_counter].ToString());
                 subDividend = (rest == 0 ? "" : rest.ToString()) + _dividend[_counter].ToString();
 
                 if (int.Parse(subDividend) < d)
                 {
-                    Emit("Cómo {0} es menor que {1} agregamos '0' al cociente", subDividend, d);
+                    Emit("How {0} is less than {1} we add '0' to the quotient", subDividend, d);
                     _quotient += "0";
                     _counter++;
                     if (_counter < _dividend.Length)
                     {
-                        Emit("Agregamos siguiente cifra al Residuo => {0}...{1} = {0}{1}", subDividend, _dividend[_counter].ToString());
+                        Emit("We add the following digit to the Residue => {0} ... {1} = {0} {1}", subDividend, _dividend[_counter].ToString());
                         subDividend += _dividend[_counter].ToString();
                     } else
                     {
@@ -173,7 +173,7 @@ namespace DidacticDivision
         {
             if (_dividend == null)
             {
-                Console.WriteLine("no hay datos que reportar");
+                Console.WriteLine("there is no data to report");
                 return;
             }
 
@@ -204,12 +204,12 @@ namespace DidacticDivision
 
             int r = int.Parse(_quotient) * int.Parse(_divider) + int.Parse(_residue);
 
-            Console.WriteLine("Prueba = Cociente * Divisor + Residuo = {0}\n\r", r);
+            Console.WriteLine("Test = Quotient * Divider + Residue = {0}\n\r", r);
 
             if (r == int.Parse(_dividend) && int.Parse(_residue) < int.Parse(_divider))
-                Console.WriteLine("División correcta");
+                Console.WriteLine("Correct division");
             else
-                Console.WriteLine("División incorrecta");
+                Console.WriteLine("Incorrect division");
         }
 
 
