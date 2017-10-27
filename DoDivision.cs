@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Collections.Generic;
 // Por: Harvey Triana
-namespace División
+namespace DidacticDivision
 {
     class DoDivision
     {// Algoritmo: http://es.wikipedia.org/wiki/Divisi%C3%B3n_(matem%C3%A1tica)

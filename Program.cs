@@ -3,7 +3,7 @@ using System.IO;
 //
 using static System.Console;
 
-namespace División
+namespace DidacticDivision
 {
     class Program
     {
