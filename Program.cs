@@ -34,11 +34,12 @@ namespace DidacticDivision
                 WriteLine("Input");
                 WriteLine("-----");
                 Write("Dividend             = ? ");
-                int dividend = GetInteger(ReadLine());
+                int.TryParse(ReadLine(), out int dividend);
                 Write("Divider (two digits) = ? ");
-                int divider = GetInteger(ReadLine());
+                int.TryParse(ReadLine(), out int divider);
                 //
                 if (dividend == 0) {
+                    WriteLine("Quit");
                     break;
                 }
                 hd.Divide(dividend, divider);
@@ -47,11 +48,6 @@ namespace DidacticDivision
                 WriteLine("");
                 // hd.Emited();
             }
-        }
-
-        private static int GetInteger(string s) {
-            int.TryParse(s, out int r);
-            return r;
         }
     }
 }

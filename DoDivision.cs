@@ -20,9 +20,9 @@ namespace DidacticDivision
         List<string> _report = new List<string>();
         List<string> _emited = new List<string>();
 
-        public void Divide(int Dividendo, int Divisor) {
-            if (ValidParameters(Dividendo, Divisor)) {
-                Run(Dividendo.ToString(), Divisor.ToString());
+        public void Divide(int dividendo, int divisor) {
+            if (ValidParameters(dividendo, divisor)) {
+                Run(dividendo.ToString(), divisor.ToString());
             }
         }
 
@@ -150,8 +150,8 @@ namespace DidacticDivision
             return subDividend;
         }
 
-        void Emit(string FormatString, params object[] a) {
-            if (_emitir) _emited.Add(string.Format(FormatString, a));
+        void Emit(string formatString, params object[] a) {
+            if (_emitir) _emited.Add(string.Format(formatString, a));
         }
 
         public int Quotient => int.Parse(_quotient);
@@ -163,8 +163,8 @@ namespace DidacticDivision
                 return;
             }
 
-            int i = 0;
-            string n = (_dividend.Length).ToString();
+            var i = 0;
+            var n = (_dividend.Length).ToString();
             Console.WriteLine("{0, -" + n + "} | {1}", _dividend, _divider);
             foreach (string s in _report) {
                 if (i == 0) {
@@ -184,7 +184,7 @@ namespace DidacticDivision
             Console.WriteLine("---------------");
 
             // TEST
-            int r = int.Parse(_quotient) * int.Parse(_divider) + int.Parse(_residue);
+            var r = int.Parse(_quotient) * int.Parse(_divider) + int.Parse(_residue);
 
             Console.WriteLine("Test = Quotient * Divider + Residue = {0}\n\r", r);
 
@@ -195,7 +195,7 @@ namespace DidacticDivision
         }
 
         public void Emited() {
-            foreach (string s in _emited) {
+            foreach (var s in _emited) {
                 Console.WriteLine(s);
             }
         }
