@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DidacticDivision
-{
-    class DoDivision
-    {// Source: http://es.wikipedia.org/wiki/Divisi%C3%B3n_(matem%C3%A1tica)
+namespace DidacticDivision {
+    class DoDivision {// Source: http://es.wikipedia.org/wiki/Divisi%C3%B3n_(matem%C3%A1tica)
 
         string _dividend;
         string _divider;
@@ -16,21 +14,17 @@ namespace DidacticDivision
         List<string> _report = new List<string>();
         List<string> _emited = new List<string>();
 
-        public void Divide(int Dividendo, int Divisor)
-        {
-            if (ValidParameters(Dividendo, Divisor))
-            {
+        public void Divide(int Dividendo, int Divisor) {
+            if (ValidParameters(Dividendo, Divisor)) {
                 Run(Dividendo.ToString(), Divisor.ToString());
             }
         }
 
-        public void Run(int dividend, int divider, bool emit)
-        {
+        public void Run(int dividend, int divider, bool emit) {
             _emitir = emit;
             Divide(dividend, divider);
         }
-        private void Run(string dividend, string divider)
-        {
+        private void Run(string dividend, string divider) {
             _dividend = dividend;
             _divider = divider;
             _quotient = "";
@@ -51,20 +45,17 @@ namespace DidacticDivision
             Emit("Residue  = {0}\n\r", _residue);
         }
 
-        private bool ValidParameters(int dividend, int divider)
-        {
+        private bool ValidParameters(int dividend, int divider) {
             if (divider.ToString().Length != 2 ||
                 dividend.ToString().Length < 2 ||
-                divider > dividend)
-            {
+                divider > dividend) {
                 Emit("Invalid data entered");
                 return false;
             }
             return true;
         }
 
-        string Partial(string dividend, string divider)
-        {
+        string Partial(string dividend, string divider) {
             int partialRatio;
             int rest;
             int substractor;
@@ -87,12 +78,10 @@ namespace DidacticDivision
             Emit("   a = Take the first digit (no change)");
             Emit("   c = Take the first two digits\n\r");
 
-            if (a <= b)
-            {
+            if (a <= b) {
                 a = int.Parse(dividend.Substring(0, 2));
                 c = int.Parse(dividend.Substring(0, 3));
-            } else
-            {
+            } else {
                 c = int.Parse(dividend.Substring(0, 2));
             }
             Emit("a = {0}", a);
@@ -104,8 +93,7 @@ namespace DidacticDivision
             partialRatio = a / b;
             Emit("Partial Quotient = a / b = {0}\n\r", partialRatio);
             Emit("We search that '{0}' - Partial Quotient * Divider >= 0\nSubtracting 1 from Partial Quotient", c);
-            while (true)
-            {
+            while (true) {
                 substractor = partialRatio * d;
                 Emit("    {0} - {1} * {2} = {3}", c, partialRatio, divider, c - substractor);
                 // Emit("Subtractor = Partial Ratio * _Divisor = ({0} * {1}) = {2}", Partial Ratio, _Divisor, Subtractor);
@@ -131,47 +119,39 @@ namespace DidacticDivision
             else
                 _counter++;
 
-            if (_counter < _dividend.Length)
-            {
+            if (_counter < _dividend.Length) {
                 Emit("We add the following figure to the Residue => {0} ... {1} = {0} {1}", _residue, _dividend[_counter].ToString());
                 subDividend = (rest == 0 ? "" : rest.ToString()) + _dividend[_counter].ToString();
 
-                if (int.Parse(subDividend) < d)
-                {
+                if (int.Parse(subDividend) < d) {
                     Emit("How {0} is less than {1} we add '0' to the quotient", subDividend, d);
                     _quotient += "0";
                     _counter++;
-                    if (_counter < _dividend.Length)
-                    {
+                    if (_counter < _dividend.Length) {
                         Emit("We add the following digit to the Residue => {0} ... {1} = {0} {1}", subDividend, _dividend[_counter].ToString());
                         subDividend += _dividend[_counter].ToString();
-                    } else
-                    {
+                    } else {
                         _residue = subDividend;
                         subDividend = "";
                     }
                 }
                 if (subDividend != "") _report.Add(subDividend);
-            } else
-            {// No more dividend digits, iteration ends
+            } else {// No more dividend digits, iteration ends
                 subDividend = "";
             }
             Emit("---------------------------------------------------------\n\r");
             return subDividend;
         }
 
-        void Emit(string FormatString, params object[] a)
-        {
+        void Emit(string FormatString, params object[] a) {
             if (_emitir) _emited.Add(string.Format(FormatString, a));
         }
 
         public int Quotient { get { return int.Parse(_quotient); } }
         public int Residue { get { return int.Parse(_residue); } }
 
-        public void Report()
-        {
-            if (_dividend == null)
-            {
+        public void Report() {
+            if (_dividend == null) {
                 Console.WriteLine("there is no data to report");
                 return;
             }
@@ -179,17 +159,14 @@ namespace DidacticDivision
             int i = 0;
             string n = (_dividend.Length).ToString();
             Console.WriteLine("{0, -" + n + "} | {1}", _dividend, _divider);
-            foreach (string s in _report)
-            {
-                if (i == 0)
-                {
+            foreach (string s in _report) {
+                if (i == 0) {
                     Console.WriteLine("---------------");
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.Write("{0, -" + n + "}", s);
                     Console.ForegroundColor = ConsoleColor.Gray;
                     Console.WriteLine(" | {0}", _quotient);
-                } else
-                {
+                } else {
                     Console.ForegroundColor = (i % 2 == 0) ? ConsoleColor.DarkGray : ConsoleColor.Gray;
                     Console.WriteLine("{0}", s);
                 }
@@ -211,8 +188,7 @@ namespace DidacticDivision
         }
 
 
-        public void Emited()
-        {
+        public void Emited() {
             foreach (string s in _emited) Console.WriteLine(s);
         }
     }
