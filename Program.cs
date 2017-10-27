@@ -4,7 +4,6 @@
 // arithmetic division by two digits.
 //==============================================
 using System;
-using System.IO;
 //
 using static System.Console;
 
@@ -50,7 +49,7 @@ namespace DidacticDivision
                 WriteLine("");
                 hd.Report();
                 WriteLine("");
-                //hd.Emitido();
+                // hd.Emited();
             }
         }
 

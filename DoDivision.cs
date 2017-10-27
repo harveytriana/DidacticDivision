@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Collections.Generic;
-// Por: Harvey Triana
+
 namespace DidacticDivision
 {
     class DoDivision
-    {// Algoritmo: http://es.wikipedia.org/wiki/Divisi%C3%B3n_(matem%C3%A1tica)
+    {// Source: http://es.wikipedia.org/wiki/Divisi%C3%B3n_(matem%C3%A1tica)
 
         string _dividend;
         string _divider;
@@ -100,7 +99,7 @@ namespace DidacticDivision
             Emit("b = {0}", b);
             Emit("c = {0}", c);
 
-            //  el número que multiplicado por el divisor se aproxima más por defecto a 'a'
+            // the number that multiplied by the divisor approaches more by default to 'a'
 
             partialRatio = a / b;
             Emit("Partial Quotient = a / b = {0}\n\r", partialRatio);
@@ -109,7 +108,7 @@ namespace DidacticDivision
             {
                 substractor = partialRatio * d;
                 Emit("    {0} - {1} * {2} = {3}", c, partialRatio, divider, c - substractor);
-                //Emíta("Sustractor = CocienteParcial *_Divisor = ({0} * {1}) = {2}", CocienteParcial, _Divisor, Sustractor);
+                // Emit("Subtractor = Partial Ratio * _Divisor = ({0} * {1}) = {2}", Partial Ratio, _Divisor, Subtractor);
                 if (substractor > c) partialRatio--;
                 else break;
             }
@@ -119,7 +118,7 @@ namespace DidacticDivision
             rest = c - substractor;
             _residue = rest.ToString();
 
-            //Emíta("\n\rResto = c - Sustractor = ({0} - {1}) = {2}\n\r", c, Sustractor, Resto);
+            //Emit("\ n \ rRest = c - Subtractor = ({0} - {1}) = {2} \ n \ r", c, Subtractor, Rest);
             Emit("");
 
             _quotient += partialRatio.ToString();
@@ -154,7 +153,7 @@ namespace DidacticDivision
                 }
                 if (subDividend != "") _report.Add(subDividend);
             } else
-            {// No hay más cifras del dividendo, termina iteración
+            {// No more dividend digits, iteration ends
                 subDividend = "";
             }
             Emit("---------------------------------------------------------\n\r");
@@ -200,8 +199,7 @@ namespace DidacticDivision
             Console.WriteLine("{0}", _residue);
             Console.WriteLine("---------------");
 
-            // probar
-
+            // TEST
             int r = int.Parse(_quotient) * int.Parse(_divider) + int.Parse(_residue);
 
             Console.WriteLine("Test = Quotient * Divider + Residue = {0}\n\r", r);
